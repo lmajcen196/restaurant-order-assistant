@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.venv/
+__pycache__/
+.pytest_cache/
+.env
+.DS_Store
+*.tsbuildinfo
+backend/data/
+*.sqlite3
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm
+.env.*
+!.env.example
+*.pyc

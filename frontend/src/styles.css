@@ -1,0 +1,303 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #252b28;
+  background: #fff;
+  font-synthesis: none;
+  line-height: 1.5;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, textarea, input { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .55; }
+button:focus-visible, input:focus-visible { outline: 3px solid #9abdaa; outline-offset: 3px; }
+
+.app { width: min(100%, 720px); margin: 0 auto; padding: 56px 24px 80px; }
+h1 { margin: 0 0 28px; font-size: 28px; font-weight: 650; letter-spacing: -.7px; }
+form > label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 550; }
+textarea { display: block; width: 100%; min-height: 190px; padding: 14px; resize: vertical; border: 1px solid #ccd3ce; border-radius: 8px; color: inherit; background: #fff; font-size: 15px; line-height: 1.65; }
+textarea::placeholder { color: #8b938d; }
+textarea:focus { outline: 2px solid #739883; outline-offset: 1px; }
+textarea:disabled { background: #f8faf8; }
+.generate { margin-top: 14px; border: 0; border-radius: 7px; background: #244e3a; color: #fff; padding: 11px 18px; font-size: 14px; font-weight: 550; }
+.generate:not(:disabled):hover { background: #173d2a; }
+.feedback { color: #52705d; font-size: 13px; margin: 12px 0 0; }
+.feedback:empty { display: none; }
+.error, .load-error { color: #a23b31; font-size: 13px; margin-top: 14px; }
+.load-error p { margin-bottom: 8px; }
+.load-error button { border: 1px solid #d6dcd7; border-radius: 6px; padding: 6px 10px; background: white; color: #333e35; }
+.muted { color: #7e887f; font-size: 13px; }
+.orders { margin-top: 40px; }
+h2 { font-size: 15px; font-weight: 600; margin: 0 0 16px; }
+.order { border: 1px solid #e0e5e0; border-radius: 8px; padding: 20px; margin-bottom: 14px; overflow-wrap: anywhere; }
+.order.completed { background: #fafbf9; }
+.order-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; font-size: 12px; }
+time { color: #7a857d; }
+.completion { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #667067; cursor: pointer; }
+.completed .completion { color: #315e41; }
+.completion input { width: 17px; height: 17px; margin: 0; accent-color: #315e41; cursor: pointer; }
+.completion input:disabled { cursor: wait; }
+.items { list-style: none; margin: 0; padding: 0; }
+.items li + li { margin-top: 12px; }
+.item-name { display: block; font-size: 15px; font-weight: 550; }
+.item-detail { display: block; margin-top: 3px; font-size: 13px; color: #6d786f; }
+dl { border-top: 1px solid #edf0ec; margin: 18px 0 0; padding-top: 12px; font-size: 13px; }
+dl > div { display: grid; grid-template-columns: 135px 1fr; gap: 12px; padding: 3px 0; }
+dt { color: #7a857b; }
+dd { margin: 0; }
+.notes { margin: 14px 0 0; color: #667068; font-size: 13px; }
+.questions { margin-top: 16px; border-left: 2px solid #cca34b; padding-left: 12px; font-size: 13px; color: #7e632a; }
+.questions strong { font-weight: 600; }
+.questions ul { margin: 5px 0 0; padding-left: 18px; }
+.questions li + li { margin-top: 4px; }
+@media (max-width: 480px) {
+  .app { padding: 28px 18px 48px; }
+  h1 { font-size: 25px; margin-bottom: 22px; }
+  .generate { width: 100%; }
+  .order { padding: 16px; }
+  dl > div { grid-template-columns: 105px 1fr; }
+}
+
+
+.app-header {
+  margin-bottom: 32px;
+}
+
+.app-header p {
+  color: #647067;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+.result-wrapper {
+  margin-bottom: 20px;
+}
+
+.result-card {
+  background: #ffffff;
+  border: 1px solid #dce4dd;
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.result-header {
+  margin-bottom: 20px;
+}
+
+.result-header h3 {
+  margin: 10px 0 0;
+  font-size: 22px;
+}
+
+.result-type {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Narudžba - zelena */
+.order.result-card {
+  border-left: 5px solid #24543d;
+}
+
+.order .result-type {
+  background: #e4f2e9;
+  color: #24543d;
+}
+
+/* Prijedlog - plava */
+.suggestion.result-card {
+  border-left: 5px solid #3b6d9a;
+}
+
+.suggestion .result-type {
+  background: #e7f0fa;
+  color: #315f89;
+}
+
+.suggestion-message {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid #edf0ed;
+}
+
+.items li:last-child {
+  border-bottom: none;
+}
+
+.item-name {
+  font-weight: 500;
+}
+
+.item-quantity {
+  font-weight: 700;
+  color: #24543d;
+  white-space: nowrap;
+}
+
+.unavailable-section,
+.suggested-products {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.unavailable-section h4 {
+  color: #b45309;
+}
+
+.suggested-products h4 {
+  color: #315f89;
+}
+
+
+/* Glavna kartica odgovora */
+
+.assistant-result {
+  background: #ffffff;
+  border: 1px solid #dce4dd;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.assistant-result-header {
+  padding: 24px 28px;
+  background: #f5f8f5;
+  border-bottom: 1px solid #e3e9e4;
+}
+
+.assistant-result-header h3 {
+  margin: 0;
+  font-size: 24px;
+  color: #243c30;
+}
+
+/* Sekcije unutar odgovora */
+
+.answer-section {
+  padding: 24px 28px;
+}
+
+.answer-section + .answer-section {
+  border-top: 1px solid #e5e7eb;
+}
+
+.answer-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.answer-section-header h4 {
+  margin: 0;
+  font-size: 20px;
+  color: #252c28;
+}
+
+/* Oznake sekcija */
+
+.section-indicator {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.order-indicator {
+  background: #24543d;
+}
+
+.suggestion-indicator {
+  background: #3b6d9a;
+}
+
+/* Proizvodi */
+
+.answer-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.answer-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #edf0ed;
+}
+
+.answer-items li:last-child {
+  border-bottom: none;
+}
+
+.answer-items strong {
+  color: #24543d;
+  white-space: nowrap;
+}
+
+/* Prijedlozi */
+
+.answer-message {
+  margin: 0 0 18px;
+  line-height: 1.7;
+  color: #343c37;
+}
+
+.answer-suggestions {
+  background: #f5f8fb;
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+.answer-suggestions h5,
+.answer-unavailable h5 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.answer-suggestions h5 {
+  color: #315f89;
+}
+
+.answer-unavailable {
+  margin-top: 18px;
+}
+
+.answer-unavailable h5 {
+  color: #b45309;
+}
+
+/* Prazne sekcije */
+
+.answer-empty {
+  color: #87918a;
+  font-size: 14px;
+  font-style: italic;
+  margin: 0;
+}
